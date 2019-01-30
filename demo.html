@@ -1,0 +1,73 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>测试hightlight</title>
+
+    <!-- https://highlightjs.org/usage/ -->
+    <link rel="stylesheet" href="./styles/zenburn.css">
+    <script src="./highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <!-- https://github.com/zeroturnaround/sql-formatter -->
+    <script src="./sql-formatter.min.js"></script>
+
+    <style>
+        *{margin:0;padding:0;}
+        ul,ol,li{list-style: none;}
+        #code_area {
+            width: 80%;
+            height: 400px;
+            overflow:auto;
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+    <textarea name="edit" id="edit" cols="100" rows="10">
+            select * from a where b >0 and c = '2019-01-01' group by d having e>0 order by m;
+        </textarea>
+
+    <br />
+    <button id="btn_format">格式化</button>
+
+
+    <div id="code_area">
+        <pre>
+            <code id="code">
+                select * from a where b >0 and c = '2019-01-01' group by d having e>0 order by m;
+            </code>
+        </pre>
+    </div>
+
+
+
+    <script>
+        $(function () {
+            $("#btn_format").click(function () {
+                var sql = $("#edit").val();
+                console.log("source: ", sql);
+                var format_sql = sqlFormatter.format(sql);
+                console.log("formated: ", format_sql);
+
+                $("#code").html(format_sql);
+
+                document.querySelectorAll('pre code').forEach((block) => {
+                    hljs.highlightBlock(block);
+                });
+            });
+        });
+     
+        
+    </script>
+
+
+
+
+
+</body>
+
+</html>
